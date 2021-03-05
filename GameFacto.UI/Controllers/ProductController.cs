@@ -16,7 +16,8 @@ namespace GameFacto.UI.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var list = _productService.GetAllAsync();
+            return View(list);
         }
     }
 }

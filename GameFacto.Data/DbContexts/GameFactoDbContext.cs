@@ -17,8 +17,7 @@ namespace GameFacto.Data.DbContexts
         }
         public DbSet<User> User { get; set; }
         public DbSet<Product> Product { get; set; }
-        //public DbSet<Gender> Genders { get; set; }
-        //public DbSet<DangerClass> DangerClass { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

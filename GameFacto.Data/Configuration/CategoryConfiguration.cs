@@ -14,6 +14,12 @@ namespace GameFacto.Data.Configuration
             base.Configure(builder);
 
             builder.Metadata.FindNavigation(nameof(Category.ProductList)).SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            builder
+           .HasMany(e => e.Subcategories)
+           .WithOne(x => x.ParentCategory)
+           .HasForeignKey(x => x.ParentId);
+
         }
     }
 }

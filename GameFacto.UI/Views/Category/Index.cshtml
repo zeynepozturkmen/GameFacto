@@ -18,6 +18,7 @@
                     @*<th>Personel Tc</th>*@
                     <th>Kategori Adı</th>
                     <th>Açıklaması</th>
+                    <th>Ana kategori</th>
 
                 </tr>
             </thead>
@@ -28,7 +29,8 @@
                     {
                         <tr>
                             <td>@item.Name</td>
-                            <td>@item.Name</td>
+                            <td>@item.Description</td>
+                            <th>@item.ParentCategory?.Name</th>
                         </tr>
 
                     }

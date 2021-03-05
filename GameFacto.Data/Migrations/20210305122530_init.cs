@@ -20,11 +20,17 @@ namespace GameFacto.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    ParentId = table.Column<int>(nullable: false)
+                    ParentId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Category_Category_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +73,7 @@ namespace GameFacto.Data.Migrations
                     UpdateDate = table.Column<DateTime>(nullable: true),
                     RecordUserId = table.Column<int>(nullable: false),
                     UpdateUserId = table.Column<int>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     FullName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -208,6 +214,11 @@ namespace GameFacto.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Category_ParentId",
+                table: "Category",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_CategoryId",

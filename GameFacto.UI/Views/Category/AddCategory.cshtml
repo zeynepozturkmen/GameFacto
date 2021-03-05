@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<GameFacto.Core.Entities.Category>
+
+<form id="AddCategoryForm">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Kategori Adı</label>
+            <input type="text" class="form-control" id="inputEmail4" name="Name" placeholder="Kategori Adı" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Açıklama</label>
+            <input type="text" class="form-control" id="inputPassword4" name="Description" placeholder="Açıklama">
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+
+        <input type="radio" id="male" name="optradio" value="0" checked>
+        <label for="male">Ana kategori</label>
+        <input type="radio" id="female" class="ml-2" name="optradio" value="1">
+        <label for="female">Yok</label>
+
+        <select class="form-control" id="parentCategory" name="ParentId">
+            @if (Model != null && Model.Count() > 0)
+            {
+                <option value="">Seçiniz</option>
+                foreach (var item in Model)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+
+
+        </select>
+
+    </div>
+
+    <button type="submit" class="btn btn-success pull-right">Kaydet</button>
+</form>
+
+<script>
+    $('input:radio[name="optradio"]').change(function () {
+        if ($(this).is(':checked') && $(this).val() == '0') {
+            // append goes here
+            $("#parentCategory").attr("disabled", false);
+
+
+        }
+        else if ($(this).is(':checked') && $(this).val() == '1') {
+            $("#parentCategory").attr("disabled", true);
+            $("#parentCategory").val('');
+
+        }
+
+    });
+
+
+    $("#AddCategoryForm").submit(function (event) {
+
+        event.preventDefault();
+
+        var formValue = (this);
+
+        swal({
+            text: "Kategori kaydedilecek emin misiniz?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet',
+            cancelButtonText: 'Hayır',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger ml-2',
+            buttonsStyling: false
+        }).then(function (willDelete) {
+            if (willDelete) {
+                $.ajax({
+                    method: "POST",
+                    url: "/Category/AddCategory",
+                    //dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: new FormData(formValue),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+
+                    }
+                }).done(function (d) {
+
+                    if (d.failed == true) {
+                        toastr.error(d.message, "Hata");
+
+                    }
+                    else {
+
+                        debugger;
+
+                        toastr.success(d.message, "Başarılı");
+
+                        //setTimeout(function () {
+                        //    window.location.href = "/Hotel/HotelById?HotelId=" + d.id;
+                        //}, 500);
+                    }
+
+
+                }).fail(function (xhr) {
+                    if (xhr.status == 403) {
+                        window.location.href = "/Account/AccessDenied";
+                    }
+                }).always(function () {
+
+                });
+            }
+
+        });
+    });
+
+</script>

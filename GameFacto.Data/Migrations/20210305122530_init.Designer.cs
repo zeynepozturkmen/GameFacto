@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameFacto.Data.Migrations
 {
     [DbContext(typeof(GameFactoDbContext))]
-    [Migration("20210304144718_init")]
+    [Migration("20210305122530_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace GameFacto.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RecordDate")
@@ -85,6 +85,8 @@ namespace GameFacto.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Category");
                 });
@@ -157,7 +159,7 @@ namespace GameFacto.Data.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -317,6 +319,13 @@ namespace GameFacto.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GameFacto.Core.Entities.Category", b =>
+                {
+                    b.HasOne("GameFacto.Core.Entities.Category", "ParentCategory")
+                        .WithMany("Subcategories")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("GameFacto.Core.Entities.Product", b =>
