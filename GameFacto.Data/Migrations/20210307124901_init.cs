@@ -94,7 +94,7 @@ namespace GameFacto.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Imageurl = table.Column<int>(nullable: false),
+                    Imageurl = table.Column<string>(nullable: true),
                     Price = table.Column<float>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false)
                 },

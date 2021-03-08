@@ -8,5 +8,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GameFacto.Contract\GameFacto.Contract.csproj" />
+    <ProjectReference Include="..\GameFacto.Service\GameFacto.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
 
 </Project>

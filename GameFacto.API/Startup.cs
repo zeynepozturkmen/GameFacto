@@ -11,6 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Swashbuckle.AspNetCore.Swagger;
+using GameFacto.Service.IService;
+using GameFacto.Service.Service;
+using GameFacto.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameFacto.API
 {
@@ -29,6 +33,18 @@ namespace GameFacto.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnectionString");
+
+            services.AddDbContext<GameFactoDbContext>(options => options.UseSqlServer(connectionString, optionsBuilder =>
+                optionsBuilder.MigrationsAssembly("GameFacto.Data")), ServiceLifetime.Scoped
+            );
+
+            services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
+            //services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICagetoryService, CategoryService>();
+            services.AddTransient<IProductService, ProductService>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

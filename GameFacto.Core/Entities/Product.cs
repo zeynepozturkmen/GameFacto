@@ -8,7 +8,7 @@ namespace GameFacto.Core.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Imageurl { get; set; }
+        public string Imageurl { get; set; }
         public float Price { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }

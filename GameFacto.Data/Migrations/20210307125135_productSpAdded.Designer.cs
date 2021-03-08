@@ -4,14 +4,16 @@ using GameFacto.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameFacto.Data.Migrations
 {
     [DbContext(typeof(GameFactoDbContext))]
-    partial class GameFactoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210307125135_productSpAdded")]
+    partial class productSpAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

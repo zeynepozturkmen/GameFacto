@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameFacto.Data.Migrations
 {
     [DbContext(typeof(GameFactoDbContext))]
-    [Migration("20210305122530_init")]
+    [Migration("20210307124901_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,8 +104,8 @@ namespace GameFacto.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Imageurl")
-                        .HasColumnType("int");
+                    b.Property<string>("Imageurl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
